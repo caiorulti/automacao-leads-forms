@@ -1,0 +1,319 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1Xkh7lQHRC2jeWSWroAi95wi7XRdM6HczzvV6a-6_bsA",
+          "mode": "list",
+          "cachedResultName": "Projeto simples n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xkh7lQHRC2jeWSWroAi95wi7XRdM6HczzvV6a-6_bsA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 201548061,
+          "mode": "list",
+          "cachedResultName": "Respostas ao formulário 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xkh7lQHRC2jeWSWroAi95wi7XRdM6HczzvV6a-6_bsA/edit#gid=201548061"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -528,
+        -240
+      ],
+      "id": "f51c5a58-1ffc-4e84-9495-5f63f2cc9423",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "3odshoT1fd4iYQ9c",
+          "name": "Google Sheets Trigger OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dea44bd8-8922-4963-aa33-36e8b718d438",
+              "name": "Carimbo de data/hora",
+              "value": "={{ $json['Carimbo de data/hora'] }}",
+              "type": "string"
+            },
+            {
+              "id": "4b4af174-6ac4-4526-80d8-9aff1cbffa4e",
+              "name": "Seu nome",
+              "value": "={{ $json['Seu nome'] }}",
+              "type": "string"
+            },
+            {
+              "id": "c0f4cbab-5771-43ca-b9d6-7ed0116eafbe",
+              "name": "Telefone",
+              "value": "={{ $json.Telefone }}",
+              "type": "number"
+            },
+            {
+              "id": "3db222f4-6d5e-48ca-960b-e014670109ba",
+              "name": "Qual a importância em investir neste projeto?",
+              "value": "={{ $json['Qual a importância em investir neste projeto?'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -320,
+        -240
+      ],
+      "id": "52a78356-3270-4773-8f0d-6d544f3d030c",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fab4fa0e-7d96-45c6-a904-8bf45a5d2eae",
+              "leftValue": "={{ $json['Qual a importância em investir neste projeto?'] }}",
+              "rightValue": "Grande Importância",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -128,
+        -256
+      ],
+      "id": "1753026e-b979-4f59-8861-3350e70f6407",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Xkh7lQHRC2jeWSWroAi95wi7XRdM6HczzvV6a-6_bsA",
+          "mode": "list",
+          "cachedResultName": "Projeto simples n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xkh7lQHRC2jeWSWroAi95wi7XRdM6HczzvV6a-6_bsA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 201548061,
+          "mode": "list",
+          "cachedResultName": "Respostas ao formulário 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xkh7lQHRC2jeWSWroAi95wi7XRdM6HczzvV6a-6_bsA/edit#gid=201548061"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Seu nome": "={{ $('Google Sheets Trigger').item.json['Seu nome'] }}",
+            "Carimbo de data/hora": "={{ $('Google Sheets Trigger').item.json['Carimbo de data/hora'] }}",
+            "Endereço": "={{ $('Google Sheets Trigger').item.json['Endereço'] }}",
+            "Telefone": "={{ $('Google Sheets Trigger').item.json.Telefone }}",
+            "Qual a importância em investir neste projeto?": "={{ $('Google Sheets Trigger').item.json['Qual a importância em investir neste projeto?'] }}",
+            "Seu email": "={{ $('Google Sheets Trigger').item.json['Seu email'] }}"
+          },
+          "matchingColumns": [
+            "Seu email"
+          ],
+          "schema": [
+            {
+              "id": "Carimbo de data/hora",
+              "displayName": "Carimbo de data/hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Seu nome",
+              "displayName": "Seu nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Seu email",
+              "displayName": "Seu email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Endereço",
+              "displayName": "Endereço",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Comentários",
+              "displayName": "Comentários",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Qual a importância em investir neste projeto?",
+              "displayName": "Qual a importância em investir neste projeto?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Pontuação",
+              "displayName": "Pontuação",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        32,
+        -112
+      ],
+      "id": "52c9d5d7-e133-4418-abc0-c2a27599a695",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "LWh3yoDkxQZHd8rl",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const todosOsItens = $input.all();\n\n// Processa cada item da lista gerando o relatório completo\nreturn todosOsItens.map(item => {\n  const dadosCliente = item.json;\n  \n  return {\n    json: {\n      status: \"sucesso_simulado\",\n      acao: \"Simulação de Envio de WhatsApp\",\n      destino: \"Número vendas\",\n      mensagem_enviada: `Alerta: O cliente ${dadosCliente['Seu nome'] || 'Interessado'} demonstrou grande interesse no projeto!`\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -368
+      ],
+      "id": "1fcb9357-17b7-441b-923b-475ab2ab8d21",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cb9b9204a723ac49f235701f77324504639b0bc718408011d4e2e7c0f9846c50"
+  }
+}
